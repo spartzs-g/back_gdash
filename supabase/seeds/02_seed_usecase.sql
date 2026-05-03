@@ -144,9 +144,8 @@ BEGIN
         INSERT INTO sales_order_items (order_id, product_id, variant_id, staff_id, quantity, unit_price, discount_percent, total_price) VALUES
         (order_sale_id, prod_shampoo_id, var_shampoo_500ml_id, staff_stylist_id, 1.0, 450.00, 10.0, 405.00);
 
-        -- Loyalty Transaction (Customer earns 855 points, triggering loyalty update)
-        INSERT INTO loyalty_transactions (business_id, customer_id, type, points, reference_id) VALUES
-        (biz_spa_id, cust_vip_id, 'earn', 855, order_sale_id);
+        -- Loyalty points are now auto-earned by the auto_earn_loyalty_points trigger
+        -- when the order status transitions to 'completed' (handled above).
 
         -- 12. Sales Order (Refund Scenario)
         -- Creating a 'refunded' order to test the rollback trigger on customer total_spent
