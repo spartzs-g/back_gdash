@@ -1,0 +1,14 @@
+BROWSER CONSOLE: [vite] connecting...
+BROWSER CONSOLE: [vite] connected.
+BROWSER CONSOLE: %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+BROWSER CONSOLE: [Auth] business_id: aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee role: owner
+BROWSER CONSOLE: [Auth] business_id: aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee role: owner
+BROWSER CONSOLE: [Auth] business_id: aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee role: owner
+Current URL: http://localhost:5173/login
+SPINNER FOUND!
+BODY HTML: 
+    <div id="root"><div class="min-h-screen flex items-center justify-center p-4"><div class="glass w-full max-w-sm p-8"><div class="text-center mb-8"><h1 class="text-2xl font-bold bg-gradient-to-r from-primary-light to-accent bg-clip-text text-transparent">GDash POS</h1><p class="text-sm text-text-muted mt-2">Sign in to your business</p></div><form class="space-y-4"><div><label class="block text-sm font-medium text-text-muted mb-1">Email</label><input required="" class="w-full px-3 py-2.5 bg-surface-light border border-border rounded-lg text-sm text-text placeholder:text-text-muted/50 focus:outline-none focus:ring-2 focus:ring-primary/50" placeholder="you@business.com" type="email" value=""></div><div><label class="block text-sm font-medium text-text-muted mb-1">Password</label><input required="" class="w-full px-3 py-2.5 bg-surface-light border border-border rounded-lg text-sm text-text placeholder:text-text-muted/50 focus:outline-none focus:ring-2 focus:ring-primary/50" placeholder="••••••••" type="password" value=""></div><button type="submit" class="w-full py-2.5 bg-primary hover:bg-primary-dark disabled:opacity-50 text-white font-medium rounded-lg text-sm transition-default">Sign in</button></form></div></div></div>
+    <script type="module" src="/src/main.tsx?t=1777845713990"></script>
+  
+
+
