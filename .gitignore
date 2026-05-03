@@ -1,0 +1,14 @@
+# Supabase environment variables
+.env
+.env.local
+supabase/.env
+supabase/.env.local
+
+# Supabase CLI internal files
+**/supabase/.temp
+**/supabase/.branches
+
+# Temporary migration files
+
+# If using local edge functions
+supabase/functions/.env
