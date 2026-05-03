@@ -18,6 +18,7 @@ const AppointmentForm = lazy(() => import('./pages/appointments/AppointmentForm'
 const CustomersPage = lazy(() => import('./pages/customers/CustomersPage'))
 const StaffLedger = lazy(() => import('./pages/admin/StaffLedger'))
 const ExpensesPage = lazy(() => import('./pages/admin/ExpensesPage'))
+const PaymentsPage = lazy(() => import('./pages/admin/PaymentsPage'))
 
 const LazyFallback = () => (
   <div className="flex items-center justify-center p-12">
@@ -56,6 +57,7 @@ const router = createBrowserRouter([
           // Admin
           { path: 'admin', element: <SuspenseWrap><StaffLedger /></SuspenseWrap> },
           { path: 'admin/expenses', element: <SuspenseWrap><ExpensesPage /></SuspenseWrap> },
+          { path: 'admin/payments', element: <SuspenseWrap><PaymentsPage /></SuspenseWrap> },
         ],
       },
     ],

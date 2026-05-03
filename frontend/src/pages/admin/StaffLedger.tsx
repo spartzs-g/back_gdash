@@ -61,7 +61,10 @@ export default function StaffLedger() {
       <div>
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-2xl font-bold">Staff & Commissions</h1>
-          <a href="/admin/expenses" className="px-4 py-2 bg-surface-light hover:bg-surface-lighter text-text-muted text-sm font-medium rounded-lg transition-default">Expenses →</a>
+          <div className="flex gap-3">
+            <a href="/admin/expenses" className="px-4 py-2 bg-surface-light hover:bg-surface-lighter text-text-muted text-sm font-medium rounded-lg transition-default">Expenses →</a>
+            <a href="/admin/payments" className="px-4 py-2 bg-surface-light hover:bg-surface-lighter text-text-muted text-sm font-medium rounded-lg transition-default">Payments →</a>
+          </div>
         </div>
 
         {!staffId ? (

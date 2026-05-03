@@ -1,4 +1,5 @@
-import { NavLink, Outlet } from 'react-router-dom'
+import { NavLink, Outlet, useLocation } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 import { useSessionStore } from '../store/session.store'
 import { useAuth } from '../hooks/useAuth'
 import { BUSINESS_MODULES } from '../types/db'
@@ -7,18 +8,42 @@ const allNavItems = [
   { path: '/',              label: 'Dashboard',    icon: '📊', module: 'reports' },
   { path: '/pos',           label: 'POS',          icon: '🛒', module: 'pos' },
   { path: '/catalog',       label: 'Catalog',      icon: '📦', module: 'catalog' },
-  { path: '/inventory',     label: 'Inventory',    icon: '📋', module: 'inventory' },
+  { path: '/inventory',     label: 'Inventory',    icon: '📋', module: 'inventory', subItems: [
+    { path: '/inventory', label: 'Stock Overview' },
+    { path: '/inventory/purchase-orders', label: 'Purchase Orders' },
+  ] },
   { path: '/appointments',  label: 'Appointments', icon: '📅', module: 'appointments' },
   { path: '/customers',     label: 'Customers',    icon: '👥', module: 'customers' },
-  { path: '/admin',         label: 'Admin',        icon: '⚙️', module: 'admin' },
+  { path: '/admin',         label: 'Admin',        icon: '⚙️', module: 'admin', subItems: [
+    { path: '/admin', label: 'Commissions' },
+    { path: '/admin/expenses', label: 'Expenses' },
+    { path: '/admin/payments', label: 'Payments' },
+  ] },
 ]
 
 export default function Layout() {
   const { business, profile } = useSessionStore()
   const { logout } = useAuth()
+  const location = useLocation()
   const businessType = business?.type ?? 'other'
   const enabledModules = BUSINESS_MODULES[businessType]
   const navItems = allNavItems.filter((item) => enabledModules.includes(item.module))
+
+  const [openMenus, setOpenMenus] = useState<Record<string, boolean>>({})
+
+  useEffect(() => {
+    const current = navItems.find(item => item.subItems && (location.pathname === item.path || location.pathname.startsWith(item.path + '/')))
+    if (current) {
+      setOpenMenus(prev => {
+        if (prev[current.path]) return prev
+        return { ...prev, [current.path]: true }
+      })
+    }
+  }, [location.pathname])
+
+  const toggleMenu = (path: string) => {
+    setOpenMenus(prev => ({ ...prev, [path]: !prev[path] }))
+  }
 
   return (
     <div className="flex min-h-screen">
@@ -35,21 +60,61 @@ export default function Layout() {
         {/* Nav Links */}
         <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
           {navItems.map((item) => (
-            <NavLink
-              key={item.path}
-              to={item.path}
-              end={item.path === '/'}
-              className={({ isActive }) =>
-                `flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-default ${
-                  isActive
-                    ? 'bg-primary/15 text-primary-light font-medium'
-                    : 'text-text-muted hover:bg-surface-lighter hover:text-text'
-                }`
-              }
-            >
-              <span className="text-base">{item.icon}</span>
-              {item.label}
-            </NavLink>
+            <div key={item.path}>
+              {item.subItems ? (
+                <>
+                  <div
+                    onClick={() => toggleMenu(item.path)}
+                    className={`flex items-center justify-between px-3 py-2.5 rounded-lg text-sm cursor-pointer transition-default ${
+                      (location.pathname === item.path || location.pathname.startsWith(item.path + '/')) && !openMenus[item.path]
+                        ? 'bg-primary/15 text-primary-light font-medium'
+                        : 'text-text-muted hover:bg-surface-lighter hover:text-text'
+                    }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <span className="text-base">{item.icon}</span>
+                      {item.label}
+                    </div>
+                    <span className="text-xs opacity-50">{openMenus[item.path] ? '▲' : '▼'}</span>
+                  </div>
+                  {openMenus[item.path] && (
+                    <div className="ml-9 mt-1 space-y-1">
+                      {item.subItems.map(sub => (
+                        <NavLink
+                          key={sub.path}
+                          to={sub.path}
+                          end={sub.path === item.path || sub.path === '/'}
+                          className={({ isActive }) =>
+                            `block px-3 py-2 rounded-lg text-sm transition-default ${
+                              isActive
+                                ? 'bg-primary/15 text-primary-light font-medium'
+                                : 'text-text-muted hover:bg-surface-lighter hover:text-text'
+                            }`
+                          }
+                        >
+                          {sub.label}
+                        </NavLink>
+                      ))}
+                    </div>
+                  )}
+                </>
+              ) : (
+                <NavLink
+                  to={item.path}
+                  end={item.path === '/'}
+                  className={({ isActive }) =>
+                    `flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-default ${
+                      isActive
+                        ? 'bg-primary/15 text-primary-light font-medium'
+                        : 'text-text-muted hover:bg-surface-lighter hover:text-text'
+                    }`
+                  }
+                >
+                  <span className="text-base">{item.icon}</span>
+                  {item.label}
+                </NavLink>
+              )}
+            </div>
           ))}
         </nav>
 

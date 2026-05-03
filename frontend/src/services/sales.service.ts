@@ -41,6 +41,16 @@ export async function getOrders(businessId: string, limit = 50) {
   return data as SalesOrder[]
 }
 
+export async function getPayments(businessId: string) {
+  const { data, error } = await supabase
+    .from('payments')
+    .select('*, payment_method:payment_methods(id, name)')
+    .eq('business_id', businessId)
+    .order('created_at', { ascending: false })
+  if (error) throw error
+  return data as Payment[]
+}
+
 // ── Cart math helpers ──
 
 function calcLineItem(item: CartItem) {

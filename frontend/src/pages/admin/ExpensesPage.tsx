@@ -63,6 +63,7 @@ export default function ExpensesPage() {
           <h1 className="text-2xl font-bold">Expenses</h1>
           <div className="flex gap-3">
             <a href="/admin" className="px-4 py-2 bg-surface-light hover:bg-surface-lighter text-text-muted text-sm font-medium rounded-lg transition-default">← Commissions</a>
+            <a href="/admin/payments" className="px-4 py-2 bg-surface-light hover:bg-surface-lighter text-text-muted text-sm font-medium rounded-lg transition-default">Payments →</a>
             <button onClick={() => setShowAdd(true)} className="px-4 py-2 bg-primary hover:bg-primary-dark text-white text-sm font-medium rounded-lg transition-default">+ Add Expense</button>
           </div>
         </div>
